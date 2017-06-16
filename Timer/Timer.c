@@ -7,7 +7,7 @@
 
 #define F_CPU 8000000L
 
-#define SET_END_MOD 3
+#define SET_END_MOD 2
 #define SET_SEC_MOD 2
 #define SET_MIN_MOD 1
 #define SET_HOUR_MOD 0

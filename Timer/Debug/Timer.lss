@@ -17,15 +17,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   6 .debug_abbrev 000002f0  00000000  00000000  00001a55  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00000455  00000000  00000000  00001d45  2**0
+  7 .debug_line   00000459  00000000  00000000  00001d45  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  000002cc  00000000  00000000  0000219c  2**2
+  8 .debug_frame  000002cc  00000000  00000000  000021a0  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000003a4  00000000  00000000  00002468  2**0
+  9 .debug_str    000003a4  00000000  00000000  0000246c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000abd  00000000  00000000  0000280c  2**0
+ 10 .debug_loc    00000abd  00000000  00000000  00002810  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 000000e8  00000000  00000000  000032c9  2**0
+ 11 .debug_ranges 000000e8  00000000  00000000  000032cd  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -1144,403 +1144,408 @@ int main(void)
 	DDRB = 0x00000001;
  720:	81 e0       	ldi	r24, 0x01	; 1
  722:	87 bb       	out	0x17, r24	; 23
-	PORTB = 0x00011110;
- 724:	80 e1       	ldi	r24, 0x10	; 16
- 726:	88 bb       	out	0x18, r24	; 24
+	PORTB = 0;
+ 724:	18 ba       	out	0x18, r1	; 24
 	
 	uint8_t set_time_mode = 1; // set default: hour_mod
 	uint8_t modyfi_mode = 1; // set default: true
 	
 	LEDInit(4, 1, &DDRD, &PORTD, &DDRC, &PORTC);
- 728:	0f 2e       	mov	r0, r31
- 72a:	f5 e3       	ldi	r31, 0x35	; 53
- 72c:	ef 2e       	mov	r14, r31
- 72e:	f1 2c       	mov	r15, r1
- 730:	f0 2d       	mov	r31, r0
- 732:	04 e3       	ldi	r16, 0x34	; 52
- 734:	10 e0       	ldi	r17, 0x00	; 0
- 736:	22 e3       	ldi	r18, 0x32	; 50
- 738:	30 e0       	ldi	r19, 0x00	; 0
- 73a:	41 e3       	ldi	r20, 0x31	; 49
- 73c:	50 e0       	ldi	r21, 0x00	; 0
- 73e:	61 e0       	ldi	r22, 0x01	; 1
- 740:	84 e0       	ldi	r24, 0x04	; 4
- 742:	0e 94 89 01 	call	0x312	; 0x312 <LEDInit>
+ 726:	0f 2e       	mov	r0, r31
+ 728:	f5 e3       	ldi	r31, 0x35	; 53
+ 72a:	ef 2e       	mov	r14, r31
+ 72c:	f1 2c       	mov	r15, r1
+ 72e:	f0 2d       	mov	r31, r0
+ 730:	04 e3       	ldi	r16, 0x34	; 52
+ 732:	10 e0       	ldi	r17, 0x00	; 0
+ 734:	22 e3       	ldi	r18, 0x32	; 50
+ 736:	30 e0       	ldi	r19, 0x00	; 0
+ 738:	41 e3       	ldi	r20, 0x31	; 49
+ 73a:	50 e0       	ldi	r21, 0x00	; 0
+ 73c:	61 e0       	ldi	r22, 0x01	; 1
+ 73e:	84 e0       	ldi	r24, 0x04	; 4
+ 740:	0e 94 89 01 	call	0x312	; 0x312 <LEDInit>
 	CLOCKInit();
- 746:	0e 94 89 03 	call	0x712	; 0x712 <CLOCKInit>
+ 744:	0e 94 89 03 	call	0x712	; 0x712 <CLOCKInit>
 	CLOCKStatus |= (1 << REVERSE_CLOCK);
- 74a:	80 91 6e 00 	lds	r24, 0x006E
- 74e:	84 60       	ori	r24, 0x04	; 4
- 750:	80 93 6e 00 	sts	0x006E, r24
+ 748:	80 91 6e 00 	lds	r24, 0x006E
+ 74c:	84 60       	ori	r24, 0x04	; 4
+ 74e:	80 93 6e 00 	sts	0x006E, r24
 	setHours(12);
- 754:	8c e0       	ldi	r24, 0x0C	; 12
- 756:	90 e0       	ldi	r25, 0x00	; 0
- 758:	0e 94 0f 03 	call	0x61e	; 0x61e <setHours>
+ 752:	8c e0       	ldi	r24, 0x0C	; 12
+ 754:	90 e0       	ldi	r25, 0x00	; 0
+ 756:	0e 94 0f 03 	call	0x61e	; 0x61e <setHours>
 	
 	sei();
- 75c:	78 94       	sei
+ 75a:	78 94       	sei
 	
 	clearDisplay();
- 75e:	0e 94 c2 00 	call	0x184	; 0x184 <clearDisplay>
+ 75c:	0e 94 c2 00 	call	0x184	; 0x184 <clearDisplay>
 	// przekaznik
 	DDRB = 0x00000001;
-	PORTB = 0x00011110;
+	PORTB = 0;
 	
 	uint8_t set_time_mode = 1; // set default: hour_mod
 	uint8_t modyfi_mode = 1; // set default: true
- 762:	11 e0       	ldi	r17, 0x01	; 1
+ 760:	11 e0       	ldi	r17, 0x01	; 1
 {
 	// przekaznik
 	DDRB = 0x00000001;
-	PORTB = 0x00011110;
+	PORTB = 0;
 	
 	uint8_t set_time_mode = 1; // set default: hour_mod
- 764:	c1 e0       	ldi	r28, 0x01	; 1
+ 762:	c1 e0       	ldi	r28, 0x01	; 1
 		if(CLOCKTime == 0 && CLOCKIsActive())
 		{
 			CLOCKStop();
 			
 			set_time_mode = 1;
 			modyfi_mode = 1;
- 766:	01 e0       	ldi	r16, 0x01	; 1
+ 764:	01 e0       	ldi	r16, 0x01	; 1
 	return (int)((CLOCKTime % HOUR_SECONDS) / MINUTE_SECONDS);
 }
 
 int getHours()
 {
 	return (int)(CLOCKTime / HOUR_SECONDS);
- 768:	0f 2e       	mov	r0, r31
- 76a:	f0 e1       	ldi	r31, 0x10	; 16
- 76c:	cf 2e       	mov	r12, r31
- 76e:	fe e0       	ldi	r31, 0x0E	; 14
- 770:	df 2e       	mov	r13, r31
- 772:	e1 2c       	mov	r14, r1
- 774:	f1 2c       	mov	r15, r1
- 776:	f0 2d       	mov	r31, r0
+ 766:	0f 2e       	mov	r0, r31
+ 768:	f0 e1       	ldi	r31, 0x10	; 16
+ 76a:	cf 2e       	mov	r12, r31
+ 76c:	fe e0       	ldi	r31, 0x0E	; 14
+ 76e:	df 2e       	mov	r13, r31
+ 770:	e1 2c       	mov	r14, r1
+ 772:	f1 2c       	mov	r15, r1
+ 774:	f0 2d       	mov	r31, r0
 	}
 }
 
 void LEDSetPosition(uint8_t pos)
 {
 	position = pos % MAX_NUM_DISPLAY;
- 778:	d2 e0       	ldi	r29, 0x02	; 2
+ 776:	d2 e0       	ldi	r29, 0x02	; 2
 	clearDisplay();
 	
 	while(1)
 	{
 		// finish time
 		if(CLOCKTime == 0 && CLOCKIsActive())
- 77a:	80 91 6f 00 	lds	r24, 0x006F
- 77e:	90 91 70 00 	lds	r25, 0x0070
- 782:	a0 91 71 00 	lds	r26, 0x0071
- 786:	b0 91 72 00 	lds	r27, 0x0072
- 78a:	89 2b       	or	r24, r25
- 78c:	8a 2b       	or	r24, r26
- 78e:	8b 2b       	or	r24, r27
- 790:	49 f4       	brne	.+18     	; 0x7a4 <main+0x84>
- 792:	0e 94 83 03 	call	0x706	; 0x706 <CLOCKIsActive>
- 796:	89 2b       	or	r24, r25
- 798:	29 f0       	breq	.+10     	; 0x7a4 <main+0x84>
+ 778:	80 91 6f 00 	lds	r24, 0x006F
+ 77c:	90 91 70 00 	lds	r25, 0x0070
+ 780:	a0 91 71 00 	lds	r26, 0x0071
+ 784:	b0 91 72 00 	lds	r27, 0x0072
+ 788:	89 2b       	or	r24, r25
+ 78a:	8a 2b       	or	r24, r26
+ 78c:	8b 2b       	or	r24, r27
+ 78e:	49 f4       	brne	.+18     	; 0x7a2 <main+0x82>
+ 790:	0e 94 83 03 	call	0x706	; 0x706 <CLOCKIsActive>
+ 794:	89 2b       	or	r24, r25
+ 796:	29 f0       	breq	.+10     	; 0x7a2 <main+0x82>
 		{
 			CLOCKStop();
- 79a:	0e 94 7a 03 	call	0x6f4	; 0x6f4 <CLOCKStop>
+ 798:	0e 94 7a 03 	call	0x6f4	; 0x6f4 <CLOCKStop>
 			
 			set_time_mode = 1;
 			modyfi_mode = 1;
 			
-			PORTB |= (1 << RELAY);
- 79e:	c0 9a       	sbi	0x18, 0	; 24
+			PORTB &= ~(1 << RELAY); // RELAY OFF
+ 79c:	c0 98       	cbi	0x18, 0	; 24
 		if(CLOCKTime == 0 && CLOCKIsActive())
 		{
 			CLOCKStop();
 			
 			set_time_mode = 1;
 			modyfi_mode = 1;
- 7a0:	10 2f       	mov	r17, r16
+ 79e:	10 2f       	mov	r17, r16
 		// finish time
 		if(CLOCKTime == 0 && CLOCKIsActive())
 		{
 			CLOCKStop();
 			
 			set_time_mode = 1;
- 7a2:	c0 2f       	mov	r28, r16
- 7a4:	10 92 74 00 	sts	0x0074, r1
- 7a8:	60 91 6f 00 	lds	r22, 0x006F
- 7ac:	70 91 70 00 	lds	r23, 0x0070
- 7b0:	80 91 71 00 	lds	r24, 0x0071
- 7b4:	90 91 72 00 	lds	r25, 0x0072
- 7b8:	a7 01       	movw	r20, r14
- 7ba:	96 01       	movw	r18, r12
- 7bc:	0e 94 91 04 	call	0x922	; 0x922 <__udivmodsi4>
-			PORTB |= (1 << RELAY);
+ 7a0:	c0 2f       	mov	r28, r16
+ 7a2:	10 92 74 00 	sts	0x0074, r1
+ 7a6:	60 91 6f 00 	lds	r22, 0x006F
+ 7aa:	70 91 70 00 	lds	r23, 0x0070
+ 7ae:	80 91 71 00 	lds	r24, 0x0071
+ 7b2:	90 91 72 00 	lds	r25, 0x0072
+ 7b6:	a7 01       	movw	r20, r14
+ 7b8:	96 01       	movw	r18, r12
+ 7ba:	0e 94 91 04 	call	0x922	; 0x922 <__udivmodsi4>
+			PORTB &= ~(1 << RELAY); // RELAY OFF
 		}
 		
 		// LED
 		LEDSetPosition(0);
 		LEDSetNumberWithZero(getHours());
- 7c0:	c9 01       	movw	r24, r18
- 7c2:	0e 94 44 01 	call	0x288	; 0x288 <LEDSetNumberWithZero>
- 7c6:	d0 93 74 00 	sts	0x0074, r29
+ 7be:	c9 01       	movw	r24, r18
+ 7c0:	0e 94 44 01 	call	0x288	; 0x288 <LEDSetNumberWithZero>
+ 7c4:	d0 93 74 00 	sts	0x0074, r29
 		
 		LEDSetPosition(2);
 		LEDSetNumberWithZero(getMinutes());
- 7ca:	0e 94 48 02 	call	0x490	; 0x490 <getMinutes>
- 7ce:	0e 94 44 01 	call	0x288	; 0x288 <LEDSetNumberWithZero>
-
-// 		LEDSetPosition(4);
-// 		LEDSetNumberWithZero(getSeconds());
+ 7c8:	0e 94 48 02 	call	0x490	; 0x490 <getMinutes>
+ 7cc:	0e 94 44 01 	call	0x288	; 0x288 <LEDSetNumberWithZero>
 		
 		// Switches
 		if(!(PINB & (1 << 2)) && !CLOCKIsActive()) // UP
- 7d2:	b2 99       	sbic	0x16, 2	; 22
- 7d4:	38 c0       	rjmp	.+112    	; 0x846 <main+0x126>
- 7d6:	0e 94 83 03 	call	0x706	; 0x706 <CLOCKIsActive>
- 7da:	89 2b       	or	r24, r25
- 7dc:	a1 f5       	brne	.+104    	; 0x846 <main+0x126>
+ 7d0:	b2 99       	sbic	0x16, 2	; 22
+ 7d2:	38 c0       	rjmp	.+112    	; 0x844 <main+0x124>
+ 7d4:	0e 94 83 03 	call	0x706	; 0x706 <CLOCKIsActive>
+ 7d8:	89 2b       	or	r24, r25
+ 7da:	a1 f5       	brne	.+104    	; 0x844 <main+0x124>
 		{
 			if(!CLOCKIsActive())
- 7de:	0e 94 83 03 	call	0x706	; 0x706 <CLOCKIsActive>
- 7e2:	89 2b       	or	r24, r25
- 7e4:	39 f5       	brne	.+78     	; 0x834 <main+0x114>
+ 7dc:	0e 94 83 03 	call	0x706	; 0x706 <CLOCKIsActive>
+ 7e0:	89 2b       	or	r24, r25
+ 7e2:	39 f5       	brne	.+78     	; 0x832 <main+0x112>
 			{
 				if(set_time_mode & (1 << SET_HOUR_MOD))
- 7e6:	c0 ff       	sbrs	r28, 0
- 7e8:	12 c0       	rjmp	.+36     	; 0x80e <main+0xee>
- 7ea:	60 91 6f 00 	lds	r22, 0x006F
- 7ee:	70 91 70 00 	lds	r23, 0x0070
- 7f2:	80 91 71 00 	lds	r24, 0x0071
- 7f6:	90 91 72 00 	lds	r25, 0x0072
- 7fa:	a7 01       	movw	r20, r14
- 7fc:	96 01       	movw	r18, r12
- 7fe:	0e 94 91 04 	call	0x922	; 0x922 <__udivmodsi4>
-				setHours(getHours() + 1);
- 802:	c9 01       	movw	r24, r18
- 804:	01 96       	adiw	r24, 0x01	; 1
- 806:	0e 94 0f 03 	call	0x61e	; 0x61e <setHours>
-				else if(set_time_mode & (1 << SET_MIN_MOD))
-				setMinutes(getMinutes() + 1);
+ 7e4:	c0 ff       	sbrs	r28, 0
+ 7e6:	12 c0       	rjmp	.+36     	; 0x80c <main+0xec>
+ 7e8:	60 91 6f 00 	lds	r22, 0x006F
+ 7ec:	70 91 70 00 	lds	r23, 0x0070
+ 7f0:	80 91 71 00 	lds	r24, 0x0071
+ 7f4:	90 91 72 00 	lds	r25, 0x0072
+ 7f8:	a7 01       	movw	r20, r14
+ 7fa:	96 01       	movw	r18, r12
+ 7fc:	0e 94 91 04 	call	0x922	; 0x922 <__udivmodsi4>
+				{
+					setHours(getHours() + 1);
+ 800:	c9 01       	movw	r24, r18
+ 802:	01 96       	adiw	r24, 0x01	; 1
+ 804:	0e 94 0f 03 	call	0x61e	; 0x61e <setHours>
 				else if(set_time_mode & (1 << SET_SEC_MOD))
-				setSeconds(getSeconds() + 1);
+				{
+					setSeconds(getSeconds() + 1);
+				}
 
 				modyfi_mode = 1;
- 80a:	10 2f       	mov	r17, r16
- 80c:	13 c0       	rjmp	.+38     	; 0x834 <main+0x114>
-		{
-			if(!CLOCKIsActive())
+ 808:	10 2f       	mov	r17, r16
+ 80a:	13 c0       	rjmp	.+38     	; 0x832 <main+0x112>
 			{
 				if(set_time_mode & (1 << SET_HOUR_MOD))
-				setHours(getHours() + 1);
+				{
+					setHours(getHours() + 1);
+				}
 				else if(set_time_mode & (1 << SET_MIN_MOD))
- 80e:	c1 ff       	sbrs	r28, 1
- 810:	07 c0       	rjmp	.+14     	; 0x820 <main+0x100>
-				setMinutes(getMinutes() + 1);
- 812:	0e 94 48 02 	call	0x490	; 0x490 <getMinutes>
- 816:	01 96       	adiw	r24, 0x01	; 1
- 818:	0e 94 b6 02 	call	0x56c	; 0x56c <setMinutes>
+ 80c:	c1 ff       	sbrs	r28, 1
+ 80e:	07 c0       	rjmp	.+14     	; 0x81e <main+0xfe>
+				{
+					setMinutes(getMinutes() + 1);
+ 810:	0e 94 48 02 	call	0x490	; 0x490 <getMinutes>
+ 814:	01 96       	adiw	r24, 0x01	; 1
+ 816:	0e 94 b6 02 	call	0x56c	; 0x56c <setMinutes>
 				else if(set_time_mode & (1 << SET_SEC_MOD))
-				setSeconds(getSeconds() + 1);
+				{
+					setSeconds(getSeconds() + 1);
+				}
 
 				modyfi_mode = 1;
- 81c:	10 2f       	mov	r17, r16
- 81e:	0a c0       	rjmp	.+20     	; 0x834 <main+0x114>
-			{
-				if(set_time_mode & (1 << SET_HOUR_MOD))
-				setHours(getHours() + 1);
+ 81a:	10 2f       	mov	r17, r16
+ 81c:	0a c0       	rjmp	.+20     	; 0x832 <main+0x112>
+				}
 				else if(set_time_mode & (1 << SET_MIN_MOD))
-				setMinutes(getMinutes() + 1);
+				{
+					setMinutes(getMinutes() + 1);
+				}
 				else if(set_time_mode & (1 << SET_SEC_MOD))
- 820:	c2 ff       	sbrs	r28, 2
- 822:	07 c0       	rjmp	.+14     	; 0x832 <main+0x112>
-				setSeconds(getSeconds() + 1);
- 824:	0e 94 32 02 	call	0x464	; 0x464 <getSeconds>
- 828:	01 96       	adiw	r24, 0x01	; 1
- 82a:	0e 94 5e 02 	call	0x4bc	; 0x4bc <setSeconds>
+ 81e:	c2 ff       	sbrs	r28, 2
+ 820:	07 c0       	rjmp	.+14     	; 0x830 <main+0x110>
+				{
+					setSeconds(getSeconds() + 1);
+ 822:	0e 94 32 02 	call	0x464	; 0x464 <getSeconds>
+ 826:	01 96       	adiw	r24, 0x01	; 1
+ 828:	0e 94 5e 02 	call	0x4bc	; 0x4bc <setSeconds>
+				}
 
 				modyfi_mode = 1;
- 82e:	10 2f       	mov	r17, r16
- 830:	01 c0       	rjmp	.+2      	; 0x834 <main+0x114>
- 832:	10 2f       	mov	r17, r16
+ 82c:	10 2f       	mov	r17, r16
+ 82e:	01 c0       	rjmp	.+2      	; 0x832 <main+0x112>
+ 830:	10 2f       	mov	r17, r16
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 834:	8f e3       	ldi	r24, 0x3F	; 63
- 836:	9c e9       	ldi	r25, 0x9C	; 156
- 838:	01 97       	sbiw	r24, 0x01	; 1
- 83a:	f1 f7       	brne	.-4      	; 0x838 <main+0x118>
- 83c:	00 c0       	rjmp	.+0      	; 0x83e <main+0x11e>
- 83e:	00 00       	nop
+ 832:	8f e3       	ldi	r24, 0x3F	; 63
+ 834:	9c e9       	ldi	r25, 0x9C	; 156
+ 836:	01 97       	sbiw	r24, 0x01	; 1
+ 838:	f1 f7       	brne	.-4      	; 0x836 <main+0x116>
+ 83a:	00 c0       	rjmp	.+0      	; 0x83c <main+0x11c>
+ 83c:	00 00       	nop
 			}
 			
 			_delay_ms(20);
 			while(!(PINB & (1 << 2)));
- 840:	b2 9b       	sbis	0x16, 2	; 22
- 842:	fe cf       	rjmp	.-4      	; 0x840 <main+0x120>
- 844:	9a cf       	rjmp	.-204    	; 0x77a <main+0x5a>
+ 83e:	b2 9b       	sbis	0x16, 2	; 22
+ 840:	fe cf       	rjmp	.-4      	; 0x83e <main+0x11e>
+ 842:	9a cf       	rjmp	.-204    	; 0x778 <main+0x58>
 		}
 		else if(!(PINB & (1 << 3)) && !CLOCKIsActive()) // DOWN
- 846:	b3 99       	sbic	0x16, 3	; 22
- 848:	38 c0       	rjmp	.+112    	; 0x8ba <main+0x19a>
- 84a:	0e 94 83 03 	call	0x706	; 0x706 <CLOCKIsActive>
- 84e:	89 2b       	or	r24, r25
- 850:	a1 f5       	brne	.+104    	; 0x8ba <main+0x19a>
+ 844:	b3 99       	sbic	0x16, 3	; 22
+ 846:	38 c0       	rjmp	.+112    	; 0x8b8 <main+0x198>
+ 848:	0e 94 83 03 	call	0x706	; 0x706 <CLOCKIsActive>
+ 84c:	89 2b       	or	r24, r25
+ 84e:	a1 f5       	brne	.+104    	; 0x8b8 <main+0x198>
 		{
 			if(!CLOCKIsActive())
- 852:	0e 94 83 03 	call	0x706	; 0x706 <CLOCKIsActive>
- 856:	89 2b       	or	r24, r25
- 858:	39 f5       	brne	.+78     	; 0x8a8 <main+0x188>
+ 850:	0e 94 83 03 	call	0x706	; 0x706 <CLOCKIsActive>
+ 854:	89 2b       	or	r24, r25
+ 856:	39 f5       	brne	.+78     	; 0x8a6 <main+0x186>
 			{
 				if(set_time_mode & (1 << SET_HOUR_MOD))
- 85a:	c0 ff       	sbrs	r28, 0
- 85c:	12 c0       	rjmp	.+36     	; 0x882 <main+0x162>
- 85e:	60 91 6f 00 	lds	r22, 0x006F
- 862:	70 91 70 00 	lds	r23, 0x0070
- 866:	80 91 71 00 	lds	r24, 0x0071
- 86a:	90 91 72 00 	lds	r25, 0x0072
- 86e:	a7 01       	movw	r20, r14
- 870:	96 01       	movw	r18, r12
- 872:	0e 94 91 04 	call	0x922	; 0x922 <__udivmodsi4>
+ 858:	c0 ff       	sbrs	r28, 0
+ 85a:	12 c0       	rjmp	.+36     	; 0x880 <main+0x160>
+ 85c:	60 91 6f 00 	lds	r22, 0x006F
+ 860:	70 91 70 00 	lds	r23, 0x0070
+ 864:	80 91 71 00 	lds	r24, 0x0071
+ 868:	90 91 72 00 	lds	r25, 0x0072
+ 86c:	a7 01       	movw	r20, r14
+ 86e:	96 01       	movw	r18, r12
+ 870:	0e 94 91 04 	call	0x922	; 0x922 <__udivmodsi4>
 				setHours(getHours() - 1);
- 876:	c9 01       	movw	r24, r18
- 878:	01 97       	sbiw	r24, 0x01	; 1
- 87a:	0e 94 0f 03 	call	0x61e	; 0x61e <setHours>
+ 874:	c9 01       	movw	r24, r18
+ 876:	01 97       	sbiw	r24, 0x01	; 1
+ 878:	0e 94 0f 03 	call	0x61e	; 0x61e <setHours>
 				else if(set_time_mode & (1 << SET_MIN_MOD))
 				setMinutes(getMinutes() - 1);
 				else if(set_time_mode & (1 << SET_SEC_MOD))
 				setSeconds(getSeconds() - 1);
 
 				modyfi_mode = 1;
- 87e:	10 2f       	mov	r17, r16
- 880:	13 c0       	rjmp	.+38     	; 0x8a8 <main+0x188>
+ 87c:	10 2f       	mov	r17, r16
+ 87e:	13 c0       	rjmp	.+38     	; 0x8a6 <main+0x186>
 		{
 			if(!CLOCKIsActive())
 			{
 				if(set_time_mode & (1 << SET_HOUR_MOD))
 				setHours(getHours() - 1);
 				else if(set_time_mode & (1 << SET_MIN_MOD))
- 882:	c1 ff       	sbrs	r28, 1
- 884:	07 c0       	rjmp	.+14     	; 0x894 <main+0x174>
+ 880:	c1 ff       	sbrs	r28, 1
+ 882:	07 c0       	rjmp	.+14     	; 0x892 <main+0x172>
 				setMinutes(getMinutes() - 1);
- 886:	0e 94 48 02 	call	0x490	; 0x490 <getMinutes>
- 88a:	01 97       	sbiw	r24, 0x01	; 1
- 88c:	0e 94 b6 02 	call	0x56c	; 0x56c <setMinutes>
+ 884:	0e 94 48 02 	call	0x490	; 0x490 <getMinutes>
+ 888:	01 97       	sbiw	r24, 0x01	; 1
+ 88a:	0e 94 b6 02 	call	0x56c	; 0x56c <setMinutes>
 				else if(set_time_mode & (1 << SET_SEC_MOD))
 				setSeconds(getSeconds() - 1);
 
 				modyfi_mode = 1;
- 890:	10 2f       	mov	r17, r16
- 892:	0a c0       	rjmp	.+20     	; 0x8a8 <main+0x188>
+ 88e:	10 2f       	mov	r17, r16
+ 890:	0a c0       	rjmp	.+20     	; 0x8a6 <main+0x186>
 			{
 				if(set_time_mode & (1 << SET_HOUR_MOD))
 				setHours(getHours() - 1);
 				else if(set_time_mode & (1 << SET_MIN_MOD))
 				setMinutes(getMinutes() - 1);
 				else if(set_time_mode & (1 << SET_SEC_MOD))
- 894:	c2 ff       	sbrs	r28, 2
- 896:	07 c0       	rjmp	.+14     	; 0x8a6 <main+0x186>
+ 892:	c2 ff       	sbrs	r28, 2
+ 894:	07 c0       	rjmp	.+14     	; 0x8a4 <main+0x184>
 				setSeconds(getSeconds() - 1);
- 898:	0e 94 32 02 	call	0x464	; 0x464 <getSeconds>
- 89c:	01 97       	sbiw	r24, 0x01	; 1
- 89e:	0e 94 5e 02 	call	0x4bc	; 0x4bc <setSeconds>
+ 896:	0e 94 32 02 	call	0x464	; 0x464 <getSeconds>
+ 89a:	01 97       	sbiw	r24, 0x01	; 1
+ 89c:	0e 94 5e 02 	call	0x4bc	; 0x4bc <setSeconds>
 
 				modyfi_mode = 1;
- 8a2:	10 2f       	mov	r17, r16
- 8a4:	01 c0       	rjmp	.+2      	; 0x8a8 <main+0x188>
- 8a6:	10 2f       	mov	r17, r16
- 8a8:	8f e3       	ldi	r24, 0x3F	; 63
- 8aa:	9c e9       	ldi	r25, 0x9C	; 156
- 8ac:	01 97       	sbiw	r24, 0x01	; 1
- 8ae:	f1 f7       	brne	.-4      	; 0x8ac <main+0x18c>
- 8b0:	00 c0       	rjmp	.+0      	; 0x8b2 <main+0x192>
- 8b2:	00 00       	nop
+ 8a0:	10 2f       	mov	r17, r16
+ 8a2:	01 c0       	rjmp	.+2      	; 0x8a6 <main+0x186>
+ 8a4:	10 2f       	mov	r17, r16
+ 8a6:	8f e3       	ldi	r24, 0x3F	; 63
+ 8a8:	9c e9       	ldi	r25, 0x9C	; 156
+ 8aa:	01 97       	sbiw	r24, 0x01	; 1
+ 8ac:	f1 f7       	brne	.-4      	; 0x8aa <main+0x18a>
+ 8ae:	00 c0       	rjmp	.+0      	; 0x8b0 <main+0x190>
+ 8b0:	00 00       	nop
 			}
 			
 			_delay_ms(20);
 			while(!(PINB & (1 << 3)));
- 8b4:	b3 9b       	sbis	0x16, 3	; 22
- 8b6:	fe cf       	rjmp	.-4      	; 0x8b4 <main+0x194>
- 8b8:	60 cf       	rjmp	.-320    	; 0x77a <main+0x5a>
+ 8b2:	b3 9b       	sbis	0x16, 3	; 22
+ 8b4:	fe cf       	rjmp	.-4      	; 0x8b2 <main+0x192>
+ 8b6:	60 cf       	rjmp	.-320    	; 0x778 <main+0x58>
 		}
 		else if(!(PINB & (1 << 4))) // OK, STOP, START
- 8ba:	b4 99       	sbic	0x16, 4	; 22
- 8bc:	5e cf       	rjmp	.-324    	; 0x77a <main+0x5a>
+ 8b8:	b4 99       	sbic	0x16, 4	; 22
+ 8ba:	5e cf       	rjmp	.-324    	; 0x778 <main+0x58>
 		{
-			if(CLOCKIsActive())
- 8be:	0e 94 83 03 	call	0x706	; 0x706 <CLOCKIsActive>
- 8c2:	89 2b       	or	r24, r25
- 8c4:	29 f0       	breq	.+10     	; 0x8d0 <main+0x1b0>
+			if(CLOCKIsActive()) // STOP
+ 8bc:	0e 94 83 03 	call	0x706	; 0x706 <CLOCKIsActive>
+ 8c0:	89 2b       	or	r24, r25
+ 8c2:	29 f0       	breq	.+10     	; 0x8ce <main+0x1ae>
 			{
 				CLOCKStop();
- 8c6:	0e 94 7a 03 	call	0x6f4	; 0x6f4 <CLOCKStop>
+ 8c4:	0e 94 7a 03 	call	0x6f4	; 0x6f4 <CLOCKStop>
 				
 				set_time_mode = 1;
 				modyfi_mode = 1;
- 8ca:	10 2f       	mov	r17, r16
+ 8c8:	10 2f       	mov	r17, r16
 		{
-			if(CLOCKIsActive())
+			if(CLOCKIsActive()) // STOP
 			{
 				CLOCKStop();
 				
 				set_time_mode = 1;
- 8cc:	c0 2f       	mov	r28, r16
- 8ce:	0c c0       	rjmp	.+24     	; 0x8e8 <main+0x1c8>
+ 8ca:	c0 2f       	mov	r28, r16
+ 8cc:	0d c0       	rjmp	.+26     	; 0x8e8 <main+0x1c8>
 				modyfi_mode = 1;
 			}
 			else
 			{
-				if(modyfi_mode)
- 8d0:	11 23       	and	r17, r17
- 8d2:	41 f0       	breq	.+16     	; 0x8e4 <main+0x1c4>
+				if(modyfi_mode) // CHANGE SET TIME
+ 8ce:	11 23       	and	r17, r17
+ 8d0:	41 f0       	breq	.+16     	; 0x8e2 <main+0x1c2>
 				{
 					set_time_mode <<= 1;
- 8d4:	cc 0f       	add	r28, r28
+ 8d2:	cc 0f       	add	r28, r28
 					
 					if(set_time_mode & (1 << SET_END_MOD))
- 8d6:	c3 ff       	sbrs	r28, 3
- 8d8:	07 c0       	rjmp	.+14     	; 0x8e8 <main+0x1c8>
+ 8d4:	c2 ff       	sbrs	r28, 2
+ 8d6:	08 c0       	rjmp	.+16     	; 0x8e8 <main+0x1c8>
 					{
 						set_time_mode = 0;
 						modyfi_mode = 0;
 						
 						CLOCKStart();
- 8da:	0e 94 71 03 	call	0x6e2	; 0x6e2 <CLOCKStart>
+ 8d8:	0e 94 71 03 	call	0x6e2	; 0x6e2 <CLOCKStart>
 					set_time_mode <<= 1;
 					
 					if(set_time_mode & (1 << SET_END_MOD))
 					{
 						set_time_mode = 0;
 						modyfi_mode = 0;
- 8de:	10 e0       	ldi	r17, 0x00	; 0
+ 8dc:	10 e0       	ldi	r17, 0x00	; 0
 				{
 					set_time_mode <<= 1;
 					
 					if(set_time_mode & (1 << SET_END_MOD))
 					{
 						set_time_mode = 0;
- 8e0:	c0 e0       	ldi	r28, 0x00	; 0
- 8e2:	02 c0       	rjmp	.+4      	; 0x8e8 <main+0x1c8>
+ 8de:	c0 e0       	ldi	r28, 0x00	; 0
+ 8e0:	03 c0       	rjmp	.+6      	; 0x8e8 <main+0x1c8>
 						
 						CLOCKStart();
 					}
 				}
-				else
-				CLOCKStart();
- 8e4:	0e 94 71 03 	call	0x6e2	; 0x6e2 <CLOCKStart>
+				else { // START
+					CLOCKStart();
+ 8e2:	0e 94 71 03 	call	0x6e2	; 0x6e2 <CLOCKStart>
+					PORTB |= (1 << RELAY); // RELAY ON
+ 8e6:	c0 9a       	sbi	0x18, 0	; 24
  8e8:	8f e3       	ldi	r24, 0x3F	; 63
  8ea:	9c e9       	ldi	r25, 0x9C	; 156
  8ec:	01 97       	sbiw	r24, 0x01	; 1
  8ee:	f1 f7       	brne	.-4      	; 0x8ec <main+0x1cc>
  8f0:	00 c0       	rjmp	.+0      	; 0x8f2 <main+0x1d2>
  8f2:	00 00       	nop
+				}
 			}
 			
 			_delay_ms(20);
 			while(!(PINB & (1 << 4)));
  8f4:	b4 9b       	sbis	0x16, 4	; 22
  8f6:	fe cf       	rjmp	.-4      	; 0x8f4 <main+0x1d4>
- 8f8:	40 cf       	rjmp	.-384    	; 0x77a <main+0x5a>
+ 8f8:	3f cf       	rjmp	.-386    	; 0x778 <main+0x58>
 
 000008fa <__divmodhi4>:
  8fa:	97 fb       	bst	r25, 7

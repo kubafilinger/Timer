@@ -685,9 +685,9 @@ END GROUP
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x2f0 Timer.o
 
-.debug_line     0x00000000      0x455
+.debug_line     0x00000000      0x459
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x00000000      0x455 Timer.o
+ .debug_line    0x00000000      0x459 Timer.o
 
 .debug_frame    0x00000000      0x2cc
  *(.debug_frame)

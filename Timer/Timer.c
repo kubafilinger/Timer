@@ -28,7 +28,7 @@ int main(void)
 	uint8_t set_time_mode = 1; // set default: hour_mod
 	uint8_t modyfi_mode = 1; // set default: true
 	
-	LEDInit(6, 1, &DDRD, &PORTD, &DDRC, &PORTC);
+	LEDInit(4, 1, &DDRD, &PORTD, &DDRC, &PORTC);
 	CLOCKInit();
 	CLOCKStatus |= (1 << REVERSE_CLOCK);
 	setHours(12);
@@ -47,7 +47,7 @@ int main(void)
 			set_time_mode = 1;
 			modyfi_mode = 1;
 			
-			PORTB |= (1 << RELAY);
+			PORTB &= ~(1 << RELAY); // RELAY OFF
 		}
 		
 		// LED
@@ -57,31 +57,23 @@ int main(void)
 		LEDSetPosition(2);
 		LEDSetNumberWithZero(getMinutes());
 		
-		LEDSetPosition(4);
-		LEDSetNumberWithZero(getSeconds());
-		
 		// Switches
-		if(!(PINB & (1 << 1))) // RST
-		{
-			CLOCKStop();
-			CLOCKReset();
-			clearDisplay();
-
-			PORTB &= ~(1 << RELAY);
-
-			_delay_ms(20);
-			while(!(PINB & (1 << 1)));
-		}
-		else if(!(PINB & (1 << 2)) && !CLOCKIsActive()) // UP
+		if(!(PINB & (1 << 2)) && !CLOCKIsActive()) // UP
 		{
 			if(!CLOCKIsActive())
 			{
 				if(set_time_mode & (1 << SET_HOUR_MOD))
-				setHours(getHours() + 1);
+				{
+					setHours(getHours() + 1);
+				}
 				else if(set_time_mode & (1 << SET_MIN_MOD))
-				setMinutes(getMinutes() + 1);
+				{
+					setMinutes(getMinutes() + 1);
+				}
 				else if(set_time_mode & (1 << SET_SEC_MOD))
-				setSeconds(getSeconds() + 1);
+				{
+					setSeconds(getSeconds() + 1);
+				}
 
 				modyfi_mode = 1;
 			}
@@ -108,7 +100,7 @@ int main(void)
 		}
 		else if(!(PINB & (1 << 4))) // OK, STOP, START
 		{
-			if(CLOCKIsActive())
+			if(CLOCKIsActive()) // STOP
 			{
 				CLOCKStop();
 				
@@ -117,7 +109,7 @@ int main(void)
 			}
 			else
 			{
-				if(modyfi_mode)
+				if(modyfi_mode) // CHANGE SET TIME
 				{
 					set_time_mode <<= 1;
 					
@@ -129,8 +121,10 @@ int main(void)
 						CLOCKStart();
 					}
 				}
-				else
-				CLOCKStart();
+				else { // START
+					CLOCKStart();
+					PORTB |= (1 << RELAY); // RELAY ON
+				}
 			}
 			
 			_delay_ms(20);

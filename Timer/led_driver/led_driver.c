@@ -128,6 +128,126 @@ uint8_t convertChar(char s)
 			result = 0b01101111;
 			break;
 			
+		case 'A':
+			result = 0b01110111;
+			break;
+		
+		case 'B':
+			result = 0b01111111;
+			break;
+		
+		case 'b':
+			result = 0b01111100;
+			break;
+		
+		case 'C':
+			result = 0b111001;
+			break;
+		
+		case 'c':
+			result = 0b1011000;
+			break;
+		
+		case 'd':
+			result = 0b1011110;
+			break;
+		
+		case 'E':
+			result = 0b1111001;
+			break;
+		
+		case 'F':
+			result = 0b1110001;
+			break;
+		
+		case 'G':
+			result = 0b111101;
+			break;
+		
+		case 'H':
+			result = 0b1110110;
+			break;
+		
+		case 'h':
+			result = 0b1110100;
+			break;
+		
+		case 'I':
+			result = 0b110;
+			break;
+		
+		case 'i':
+			result = 0b100;
+			break;
+		
+		case 'J':
+			result = 0b1111;
+			break;
+		
+		case 'j':
+			result = 0b1110;
+			break;
+		
+		case 'L':
+			result = 0b111000;
+			break;
+		
+		case 'O':
+			result = 0b111111;
+			break;
+		
+		case 'o':
+			result = 0b1011100;
+			break;
+		
+		case 'P':
+			result = 0b1110011;
+			break;
+		
+		case 'S':
+			result = 0b1101101;
+			break;
+		
+		case 'T':
+			result = 0b110001;
+			break;
+		
+		case 't':
+			result = 0b1111000;
+			break;
+		
+		case 'U':
+			result = 0b111110;
+			break;
+		
+		case 'u':
+			result = 0b11100;
+			break;
+		
+		case 'Y':
+			result = 0b1100110;
+			break;
+		
+		case 'Z':
+			result = 0b1011011;
+			break;
+		
+		case '.':
+			result = 0b10000000;
+			break;
+		
+		case '-':
+			result = 0b1000000;
+			break;
+		
+		case '_':
+			result = 0b1000;
+			break;
+		
+		case '=':
+			result = 0b1001000;
+			break;
+		
 		default:
 			result = 0;
 			break;
@@ -140,4 +260,22 @@ void set_timer0()
 {
 	TCCR0 = 1 << CS01;
 	TIMSK |= 1 << TOIE0;
+}
+
+void LEDDot(uint8_t dot)
+{
+	uint8_t result;
+	
+	result = (led_type & KATODA) ? ~number[position] : number[position];
+	
+	if(dot == DEL_DOT)
+	{
+		result &= ~convertChar('.');
+	}
+	else
+	{
+		result |= convertChar('.');
+	}
+	
+	number[position] = (led_type & KATODA) ? ~result : result;
 }

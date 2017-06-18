@@ -27,6 +27,7 @@ int main(void)
 	
 	uint8_t set_time_mode = 1; // set default: hour_mod
 	uint8_t modyfi_mode = 1; // set default: true
+	uint8_t dot = 0;
 	
 	LEDInit(4, 1, &DDRD, &PORTD, &DDRC, &PORTC);
 	CLOCKInit();
@@ -53,6 +54,25 @@ int main(void)
 		// LED
 		LEDSetPosition(0);
 		LEDSetNumberWithZero(getHours());
+		
+		LEDSetPosition(1);
+		
+		if(CLOCKIsActive())
+		{
+			if(CLOCKStatus & (1 << CHANGE_STATUS))
+			{
+				dot += 1;
+				dot %= 2;
+				
+				CLOCKStatus &= ~(1 << CHANGE_STATUS);
+			}
+			
+			(dot % 2) ? LEDDot(PUT_DOT) : LEDDot(DEL_DOT);
+		}
+		else
+		{
+			LEDDot(PUT_DOT);
+		}
 		
 		LEDSetPosition(2);
 		LEDSetNumberWithZero(getMinutes());
@@ -119,6 +139,7 @@ int main(void)
 						modyfi_mode = 0;
 						
 						CLOCKStart();
+						PORTB |= (1 << RELAY); // RELAY ON
 					}
 				}
 				else { // START
